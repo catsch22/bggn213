@@ -44,16 +44,16 @@ km
 ## 
 ## Cluster means:
 ##           x         y
-## 1  2.796554 -2.974062
-## 2 -2.974062  2.796554
+## 1  2.902454 -3.498120
+## 2 -3.498120  2.902454
 ## 
 ## Clustering vector:
 ##  [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1
 ## [36] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ## 
 ## Within cluster sum of squares by cluster:
-## [1] 60.14752 60.14752
-##  (between_SS / total_SS =  89.3 %)
+## [1] 63.26915 63.26915
+##  (between_SS / total_SS =  90.7 %)
 ## 
 ## Available components:
 ## 
@@ -242,7 +242,7 @@ table(grps)
 ```
 ## grps
 ##  1  2  3 
-## 47 57 46
+## 91 21 38
 ```
 
 Plot the data colored by clusters (3, because we cut the tree to give 3 grps). 
