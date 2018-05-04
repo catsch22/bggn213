@@ -563,4 +563,4 @@ barplot(v, xlab="Principal Component", ylab="Percent Variation")
 ![](Class8_Clustering_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
 
 
-
+OK I'M ADDING THIS TEXT FROM WITHIN GITHUB BGGN FOLDER TO SEE IF IT IS ADDED TO MY LOCAL DIRECTORY CLASS8.md WITHIN Class10_Git/bggn213_github
