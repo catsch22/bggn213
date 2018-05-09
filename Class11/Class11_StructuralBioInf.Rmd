@@ -1,0 +1,40 @@
+---
+title: "Class11_StructuralBioInf"
+author: "Cat"
+date: "5/9/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exploring PBD database
+Downloaded CSV from “Analyze” -> “PDB Statistics” > “by Experimental Method and Molecular Type
+Now as Q of what oercent structures by experimental method
+
+```{r}
+p <- read.csv("DataExportSummary.csv", row.names=1)
+#allows experimental method
+p
+```
+
+```{r}
+sum(p$Total)
+percent <- (p$Total / sum(p$Total)) * 100
+percent
+```
+
+```{r}
+names(percent) <-  row.names(p)
+percent
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
