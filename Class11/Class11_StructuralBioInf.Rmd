@@ -2,7 +2,9 @@
 title: "Class11_StructuralBioInf"
 author: "Cat"
 date: "5/9/2018"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -11,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Exploring PBD database
 Downloaded CSV from “Analyze” -> “PDB Statistics” > “by Experimental Method and Molecular Type
-Now as Q of what oercent structures by experimental method
+Now as Q of what oercent structures by experimental method. (Remember to keep the intermediate file to show the output once in github online)
 
 ```{r}
 p <- read.csv("DataExportSummary.csv", row.names=1)
@@ -30,6 +32,7 @@ names(percent) <-  row.names(p)
 percent
 ```
 
+Here we can see that majority are X-ray in the database
 ```{r}
 
 ```
