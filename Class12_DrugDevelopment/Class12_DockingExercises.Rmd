@@ -1,0 +1,70 @@
+---
+title: "Class12_DrugDevelopment"
+author: "Cat"
+date: "5/11/2018"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Set up HIV-Pr for docking studies
+
+Get the library packages and protein first (download)
+```{r}
+library(bio3d)
+```
+
+```{r}
+file.name <- get.pdb("1hsg")
+file.name
+#. means that it lives here
+```
+
+Read this file in and trim out the protein and small mlcl ligand from everything else
+```{r}
+hiv <- read.pdb(file.name)
+hiv
+#reading the file you can see there's lots of non-protein/nucleic residues...
+```
+
+
+Get the ligand first...
+```{r}
+ligand <- trim.pdb(hiv, "ligand")
+ligand
+#Now we have 45 non-protein atoms...
+```
+
+Repeat for protein...
+```{r}
+protein <- trim.pdb(hiv, "protein")
+protein
+#Have 1514 atoms, same as the original info sheet, but now non-protein atoms are gone. It's imprtant to check your logic liek this as you go along
+```
+
+Now we will use write function to make new files
+
+```{r}
+write.pdb(ligand, "1hsg_ligand.pdb")
+write.pdb(protein, "1hsg_protein.pdb")
+#view these and see that everything check out
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
