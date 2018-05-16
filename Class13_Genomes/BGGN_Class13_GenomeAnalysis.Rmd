@@ -1,0 +1,142 @@
+---
+title: "BGGN Class13_Genome"
+author: "Cat"
+date: "5/16/2018"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Analyzing Mexican ancesttry in asthma SNPs
+
+Downloaded dataset of asthma SNPs present in Mexican/LA patients
+
+Read 1000 genome project data for MXL dataset:
+
+```{r}
+genotype <- read.csv("373531-SampleGenotypes-Homo_sapiens_Variation_Sample_rs8067378.csv")
+```
+
+Looking at this, second column is what we are interested in...
+
+```{r}
+#acess the second column
+genotype[,2]
+```
+
+```{r}
+#a better way to get information
+table(genotype[,2])
+```
+
+```{r}
+#to get percentages...divided by 64 (use nrow so if data changes, can still have correct info)
+table(genotype[,2]) / nrow(genotype) *100
+```
+
+RESULT: About 14% of this patient dataset have the homozygous GG SNP
+
+##FASTQ ANALYSIS
+
+```{r}
+#install.packages("seqinr")
+#install.packages("gtools")
+```
+
+```{r}
+#identify the numerical values of ASCII-based score
+library(seqinr)
+library(gtools)
+phred <- asc( s2c("DDDDCDEDCDDDDBBDDDCC@") ) - 33
+phred
+## D D D D C D E D C D D D D B B D D D C C @
+## 35 35 35 35 34 35 36 35 34 35 35 35 35 33 33 35 35 35 34 34 31
+
+```
+
+```{r}
+#What is the probability 
+prob <- 10**(-phred/10)
+prob
+```
+
+##Section 4
+
+Is there a pattern in gene expression patterns based on genotype...?
+
+```{r}
+geno <- read.table("rs8067378_ENSG00000172057.6.webarchive.txt")
+```
+
+```{r}
+#get info on this dataset... can see that 121 of the 200+ samples have the GG SNP
+summary(geno)
+```
+
+Is the GG value (RPKM) the same or different as the AA? Statistically? 
+
+```{r}
+#tell me T/F value of which ones are GG
+geno$geno == "G/G"
+```
+
+
+```{r}
+#tell you the values of GG
+geno$exp[geno$geno == "G/G"]
+```
+
+```{r}
+#get the numeric values of SNP expression values
+summary( geno$exp[geno$geno == "A/A"])
+summary( geno$exp[geno$geno == "G/A"])
+summary( geno$exp[geno$geno == "G/G"])
+```
+
+
+But now we want to PLOT this, therefore use the boxplot function, but need to tweak it...Formula interface vs data input
+
+##Let's make a boxplot
+
+```{r}
+#add the notch to visualize that the SNP levels are indeed very different from eachother
+boxplot(exp ~ geno , data =geno, notch = TRUE)
+
+```
+
+```{r}
+#install.packages("ggplot2")
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+#we are telling ggplot what we have and what type of geometry we want it to look like to visualize the data
+ggplot(geno, aes(geno, exp)) + geom_boxplot()
+```
+
+#Switchign to Example.rmd
+```{r}
+## Histogram of the exp column with ggplot2. Note that we defined the read table as geno, not expr, which is used in the class website rmd document.
+ggplot(geno, aes(exp, fill = geno)) + geom_density(alpha = 0.2)
+```
+
+```{r}
+# Boxplot with the data shown. Note that we defined the read table as geno, not expr, which is used in the class website rmd document.
+ggplot(geno, aes(geno, exp, fill=geno)) + 
+  geom_boxplot(notch=TRUE, outlier.shape = NA) + 
+  geom_jitter(shape=16, position=position_jitter(0.2), alpha=0.4)
+```
+
+To do analysis exactly in example rmd, call it as follows:
+```{r}
+#url <- "https://bioboot.github.io/bggn213_S18/class-material/rs8067378_ENSG00000172057.6.txt"
+#expr <- read.table(url)
+```
+
